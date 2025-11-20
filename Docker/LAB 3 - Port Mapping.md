@@ -1,4 +1,4 @@
-## LAB - Port Mapping from Docker Host to container
+### Port Mapping from Docker Host to container
 
 Run the following command to install Apache HTTP Server, and mapping the port 80 on the host to port 80 in the container.
 ```
