@@ -1,14 +1,14 @@
 # Multi-Stage Docker Build  
 
-## Step-1 — 
-Create Project Directory
+#### Create Project Directory
 
 ```bash
 cd ~ && mkdir MultiStageBuild-Lab && cd MultiStageBuild-Lab
 ```
-Create `package.json` file
+#### Create `package.json` file
 
 This file declares the Node.js project & defines start command.
+
 ```bash
 vi package.json              
 ```
@@ -29,7 +29,7 @@ Add the given content, by pressing `INSERT`
 ```
 save the file using `ESCAPE + :wq!`
 
-Create `index.js` file
+#### Create `index.js` file
 
 This is our simple Node web server that returns output.
 
@@ -66,9 +66,10 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 ```
 save the file using `ESCAPE + :wq!`
 
-Create Dockerfile
+#### Create Dockerfile
 
 Multi-Stage concept helps keep final image small & production-ready.
+
 ```bash
 vi Dockerfile
 ```
@@ -111,24 +112,35 @@ ls
 ```
 Should list index.js, package.json & Dockerfile
 
+#### Build the Image and deploy the Conatainer
+
 Build Docker Image
 ```docker
 docker build -t node-multistage:v1 .   
 ```
 > -t : tag image name & version
 
-```docekr
+List the build image
+
+```docker
 docker images
 ```
 Runs your app inside container mapped to system port.
 
 ```docker
-docker run -d --name multi-container -p 3000:3000 node-multistage:v1
+docker run -d --name multi-container -p 8080:8080 node-multistage:v1
 ```
 > -d = detached mode
 > -p = port mapping HOST:CONTAINER
 
+Verify the running container
+
 ```docker
 docker ps
 ```
+####  Test Application
+Open browser and paste the below 
+> http://<HOST_PUBLIC_IP>:8080
+
+You should see the styled HTML greeting with current date/time.
 
