@@ -1,5 +1,16 @@
 # Multi-Stage Docker Build  
 
+Multi-Stage Docker Build allows you to use **multiple** `FROM` **stages in a single Dockerfile**, where the first stage builds the application and the final stage runs it.
+This helps us copy **only the required output** into the final image, making it **smaller, faster, and more secure.**
+
+***Why do we use it?***
+* To reduce final image size
+* To avoid shipping build tools & unnecessary files
+* To improve performance in CI/CD and container deployments
+* To keep production images clean and lightweight
+
+---
+
 #### Create Project Directory
 
 ```bash
