@@ -7,7 +7,7 @@ cd ~ && mkdir MultiStageBuild-Lab && cd MultiStageBuild-Lab
 ```
 #### Create `package.json` file
 
-This file declares the Node.js project & defines start command.
+This file defines the Node.js project and its dependencies.
 
 ```bash
 vi package.json              
@@ -31,7 +31,7 @@ save the file using `ESCAPE + :wq!`
 
 #### Create `index.js` file
 
-This is our simple Node web server that returns output.
+This file contains the Node.js web server code.
 
 ```bash
 vi index.js              
@@ -66,9 +66,9 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 ```
 save the file using `ESCAPE + :wq!`
 
-#### Create Dockerfile
+#### Create Dockerfile (Multi-Stage Build)
 
-Multi-Stage concept helps keep final image small & production-ready.
+The **multi-stage Dockerfile** helps keep the final image small by separating the **build stage** from the **runtime stage**.
 
 ```bash
 vi Dockerfile
@@ -106,41 +106,58 @@ CMD ["node", "index.js"]
 ```
 save the file using `ESCAPE + :wq!`
 
-Verify Files Exist
+Verify Files:
+
 ```bash
 ls
 ```
-Should list index.js, package.json & Dockerfile
+Should list `index.js`, `package.json` & `Dockerfile`
 
-#### Build the Image and deploy the Conatainer
+#### Build the Docker Image
 
-Build Docker Image
+Run the Docker build command:
+
 ```docker
 docker build -t node-multistage:v1 .   
 ```
-> -t : tag image name & version
+> `docker build` – builds a Docker image from the Dockerfile.
+> `-t` : tag image name & version
+> `.` – uses the current directory as the build context.
 
-List the build image
+After the build completes, list images:
 
 ```docker
 docker images
 ```
-Runs your app inside container mapped to system port.
+#### Run the Container
+
+Now start a container from the image:
 
 ```docker
 docker run -d --name multi-container -p 8080:8080 node-multistage:v1
 ```
-> -d = detached mode
-> -p = port mapping HOST:CONTAINER
+> `docker run` – runs a container from an image.
+> `-d` – detached mode (runs in background).
+> `--name multi-container` – gives the container a friendly name.
+> `-p 8080:8080` – maps host port 8080 to container port 8080.
+> `node-multistage:v1` – the image name and tag to run.
 
 Verify the running container
 
 ```docker
 docker ps
 ```
-####  Test Application
-Open browser and paste the below 
-> http://<HOST_PUBLIC_IP>:8080
+You should see `multi-container` with `0.0.0.0:8080->8080/tcp`.
 
-You should see the styled HTML greeting with current date/time.
+####  Test Application
+
+* Open browser
+* In the address bar, enter:
+```bash
+http://<HOST_PUBLIC_IP>:8080
+```
+> Replace `<HOST_PUBLIC_IP>` with the **actual public IP** of your host VM
+> For example, if your VM public IP is 13.16.87.9, then use: http://13.16.87.9:8080
+
+You should see the styled HTML greeting **“Hello From Multi-Stage Docker Build!”** with **current date/time.**
 
