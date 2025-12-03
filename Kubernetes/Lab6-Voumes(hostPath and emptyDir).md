@@ -1,4 +1,4 @@
-## Task 1: Creating PODt with hostPath
+## Task 1: Creating POD with hostPath
 Create a file named mydep-hp.yaml using the content given below
 ```
 vi mypod-hp.yaml
