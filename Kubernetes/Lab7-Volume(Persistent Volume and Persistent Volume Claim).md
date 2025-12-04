@@ -187,7 +187,7 @@ spec:
 ```
 Apply the above yaml 
 ```
-kubectl apply -f sc-pv-claim.yaml
+kubectl apply -f ng-deploy.yaml
 ```
 Verify deployment
 ```
